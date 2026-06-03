@@ -1,0 +1,29 @@
+---
+argument_specs:
+  main:
+    short_description: An Ansible Role that checks the status of synchronous tasks and optionally collects errors.
+    options:
+      css_result:
+        description: The registered result item from a synchronous module call.
+        required: true
+        type: dict
+      css_error_list_var_name:
+        description: Dictionary key name for storing errors in aap_configuration_role_errors.
+        required: true
+        type: str
+      css_secure_logging:
+        default: "{{ aap_configuration_secure_logging | default(false) }}"
+        required: false
+        type: bool
+        description: Whether or not to include the sensitive tasks from this role in the log.
+      aap_configuration_secure_logging:
+        default: true
+        required: false
+        type: bool
+        description: This variable enables secure logging across all roles as a default.
+      aap_configuration_collect_logs:
+        default: false
+        required: false
+        type: bool
+        description: When true, collect errors instead of failing immediately.
+...

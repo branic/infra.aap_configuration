@@ -51,29 +51,6 @@ argument_specs:
 #            type: str
 #            description: Desired state of the resource.
 
-      # Async variables
-      gateway_authenticator_maps_async_retries:
-        default: "{{ aap_configuration_async_retries | default(50) }}"
-        required: false
-        description: This variable sets the number of retries to attempt for the role.
-      aap_configuration_async_retries:
-        default: 50
-        required: false
-        description: This variable sets number of retries across all roles as a default.
-      gateway_authenticator_maps_async_delay:
-        default: "{{ aap_configuration_async_delay | default(1) }}"
-        required: false
-        description: This variable sets delay between retries for the role.
-      aap_configuration_async_delay:
-        default: 1
-        required: false
-        description: This variable sets delay between retries across all roles as a default.
-      aap_configuration_async_dir:
-        default: null
-        required: false
-        description: Sets the directory to write the results file for async tasks. The default value is set to `null` which uses the Ansible Default of `~/.ansible_async`.
-
-
       # No_log variables
       gateway_authenticator_maps_secure_logging:
         default: "{{ aap_configuration_secure_logging | default(false) }}"

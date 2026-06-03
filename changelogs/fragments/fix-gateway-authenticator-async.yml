@@ -1,0 +1,15 @@
+bugfixes:
+  - >-
+    gateway_authenticators - Removed async execution pattern because the
+    ``ansible.platform.authenticator`` module is an action plugin that does
+    not support async. The role now runs synchronously.
+  - >-
+    gateway_authenticator_maps - Removed async execution pattern because the
+    ``ansible.platform.authenticator_map`` module is an action plugin that does
+    not support async. The role now runs synchronously.
+minor_changes:
+  - >-
+    collect_sync_status - Added new internal role for synchronous error
+    collection, replacing ``collect_async_status`` for roles using action
+    plugin based modules that do not support async.
+...

@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  role_name: collect_sync_status
+  author: Brant Evans
+  description: An Ansible Role that checks the status of synchronous tasks and optionally collects errors.
+  company: Red Hat
+
+  license: GPL-3.0-or-later
+
+  min_ansible_version: 2.16.0
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+
+  galaxy_tags:
+    - controller
+    - aap
+    - awx
+    - configuration
+
+dependencies:
+  - role: global_vars
+...

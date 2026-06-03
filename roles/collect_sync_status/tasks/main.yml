@@ -1,0 +1,36 @@
+---
+- name: A sync_error_reporting block
+  no_log: "{{ css_secure_logging }}"
+  when: css_result is failed
+  block:
+    - name: Handle_error | Show error and stop execution
+      when: not aap_configuration_collect_logs | default(false) | bool
+      ansible.builtin.fail:
+        msg: "error: {{ css_result['msg'] | default('Unknown Error') }}"
+
+    - name: Handle_error | Build consolidated list of failed objects and the error
+      ansible.builtin.set_fact:
+        aap_configuration_role_errors: "{{ aap_configuration_role_errors | default({})
+                                            | ansible.builtin.combine(
+                                                { css_error_list_var_name: aap_configuration_role_errors[css_error_list_var_name]
+                                                    | default([]) + [__new_error]
+                                                }
+                                              )
+                                      }}"
+      vars:
+        __css_item: "{{ css_result[css_result.ansible_loop_var] }}"
+        __new_error:
+          ERROR_MESSAGE: "{{ css_result['msg'] | default('UNKNOWN ERROR') }}"
+          name: "{{ __css_item['name'] | default(omit) }}"
+          organization: "{{ __css_item['organization'] | default(omit) }}"
+          hostname: "{{ __css_item['hostname'] | default(omit) }}"
+          source_credential: "{{ __css_item['source_credential'] | default(omit) }}"
+          target_credential: "{{ __css_item['target_credential'] | default(omit) }}"
+          inventory: "{{ __css_item['inventory'] | default(omit) }}"
+          role: "{{ __css_item['role'] | default(omit) }}"
+          user: "{{ __css_item['user'] | default(omit) }}"
+          username: "{{ __css_item['username'] | default(omit) }}"
+          groups: "{{ __css_item['groups'] | default(omit) }}"
+          namespace: "{{ __css_item['namespace'] | default(omit) }}"
+          path: "{{ __css_item['path'] | default(omit) }}"
+...
